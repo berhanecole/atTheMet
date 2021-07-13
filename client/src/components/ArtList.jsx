@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Artlist extends React.Component {
+class ArtList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};

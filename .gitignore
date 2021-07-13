@@ -7,3 +7,4 @@ node_modules
 # Project
 client/dist/bundle.js
 .env
+server/db/dummyData

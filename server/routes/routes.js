@@ -204,7 +204,7 @@ ArtRoutes.patch('/:username/delete/:pieceId', async (req, res) => {
   User.update({ username }, { $pull: { favorites: piece }})
     .then((data) => {
       console.log(data);
-      res.send(201).send('successfully updated');
+      res.status(201).send('successfully updated');
     }).catch(err => {
       console.log(err);
       res.sendStatus(500);

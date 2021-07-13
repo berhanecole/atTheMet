@@ -2,9 +2,10 @@
 const mongoose = require('mongoose');
 const DB = 'metDB';
 
-mongoose.connect(`mongodb://localhost:27017/${db}`, 
+mongoose.connect(`mongodb://localhost:27017/${DB}`, 
   { useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true
   }).then(() => {
   console.log(`Successfully Connected to ${DB}`);
 }).catch(err => {
@@ -12,7 +13,10 @@ mongoose.connect(`mongodb://localhost:27017/${db}`,
 });
 
 const PieceSchema = new mongoose.Schema({
-  apiID: Number,
+  apiID: {
+    type: Number,
+    unique: true
+  },
   image: String,
   title: String,
   artist: String,
@@ -24,16 +28,19 @@ const PieceSchema = new mongoose.Schema({
   tags: [String],
 });
 
-const Piece = new mongoose.Model('Piece', PieceSchema);
+const Piece = new mongoose.model('Piece', PieceSchema);
 
 
 const UserSchema = new mongoose.Schema({
   username: String,
   password: String,
-
+  favorites: {
+    type: [PieceSchema],
+    default: undefined
+  }
 });
 
-const User = new mongoose.Model('User', UserSchema);
+const User = new mongoose.model('User', UserSchema);
 
 module.exports = {
   Piece,

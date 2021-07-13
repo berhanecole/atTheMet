@@ -18,12 +18,30 @@ const PieceSchema = new mongoose.Schema({
     unique: true
   },
   image: String,
-  title: String,
-  artist: String,
-  artistBio: String,
-  date: String,
-  medium: String,
-  dimension: String,
+  title: {
+    default: 'Untitled',
+    type: String
+  },
+  artist: {
+    default: 'Artist Unknown',
+    type: String,
+  },
+  artistBio: {
+    default: 'No Information Given',
+    type: String,
+  },
+  date: {
+    default: 'Provenance Unknown',
+    type: String,
+  },
+  medium: {
+    default: 'Information Unknown',
+    type: String,
+  },
+  dimension: {
+    default: 'Dimensions Unknown',
+    type: String,
+  },
   externalUrl: String,
   tags: [String],
 });

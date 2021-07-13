@@ -10,6 +10,7 @@ const metAPISearch = (query) => {
     // console.log(data, err);
     // Promise.resolve(data);
     // come back to check for duplicates
+    // maybe think about using model.exists() from mongoose;
     //   try {
     //     Piece.find({apiID: { $ne: results[randomIndex]}});
 

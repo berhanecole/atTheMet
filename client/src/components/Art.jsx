@@ -4,6 +4,10 @@ import axios from 'axios';
 class Art extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      tags: []
+    };
   }
 
   

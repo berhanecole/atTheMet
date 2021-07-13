@@ -15,10 +15,92 @@ class App extends React.Component {
       pieces: [],
       favorites: [],
       featuredPiece: {},
-      user: {}
+      user: {},
+      isLoggedIn: false,
+      query: ''
     };
 
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleRegister = this.handleRegister.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleFavorite = this.handleFavorite.bind(this);
+    this.handleUnfavorite = this.handleUnfavorite.bind(this);
   }
+
+  handleSearch(query) {
+    if (query.length) {
+      axios.get('/routes/routes/featured', { query })
+        .then(data => { this.setState({ featuredPiece: data.data }); });
+    }
+  }
+
+  handleChange(e) {
+    this.setState({value: e.target.query});
+  }
+
+  handleRegister(username, password) {
+    if (username && password.length) {
+      axios.post('/routes/routes/register', { username, password })
+        .then((data) => {
+          console.log(data);
+        }).catch(err => {
+          console.log(err);
+        });
+    }
+  }
+
+  handleLogin(username, password) {
+    if (username && password.length) {
+      axios.login('/routes/routes/login', { username, password })
+        .then((data) => {
+          console.log(data);
+          if (data.apiID) {
+            this.setState({ user: data.data, isLoggedIn: true });
+          }
+        }).catch(err => {
+          console.log(err);
+        });
+    }
+  }
+
+  handleFavorite() {
+    if (isLoggedIn) {
+      const { username } = this.state.user;
+      const { apiID } = this.state.featuredPiece;
+      axios.patch(`/${username}/add/${apiID}`)
+        .then(() => {
+          console.log('successfully added favorite');
+        }).catch(err => {
+          console.log(err);
+        });
+    }
+  }
+
+  handleUnfavorite() {
+    if (isLoggedIn) {
+      const { username } = this.state.user;
+      const { apiID } = this.state.featuredPiece;
+      axios.patch(`/${username}/delete/${apiID}`)
+        .then(() => {
+          console.log('successfully removed favorite');
+        }).catch(err => {
+          console.log(err);
+        });
+    }
+  }
+
+  componentDidMount() {
+    axios.get('/routes/routes/random')
+      .then(data => { this.setState({ featuredPiece: data.data }); })
+      .then(() => {
+        console.log(this.state.featuredPiece);
+      });
+    axios.get('/routes/routes/')
+      .then(data => { this.setState({ pieces: data.data}); })
+      .then(data => console.log(this.state.pieces));
+  }
+
   render() {
     return <h1>{this.props.title}</h1>;
   }

@@ -7,7 +7,9 @@ class ArtList extends React.Component {
   }
 
   render() {
-    
+    return (
+      <h2>ArtList</h2>
+    );
   }
 }
 

@@ -13,6 +13,12 @@ class Art extends React.Component {
   
   render() {
     const { featuredPiece } = this.state;
-  
+    return (
+      
+      <h2>Piece</h2>
+ 
+    );
   }
 }
+
+export default Art;

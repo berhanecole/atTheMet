@@ -20,10 +20,12 @@ class App extends React.Component {
       query: ''
     };
 
+
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.randomPiece = this.randomPiece.bind(this);
     this.handleFavorite = this.handleFavorite.bind(this);
     this.handleUnfavorite = this.handleUnfavorite.bind(this);
   }
@@ -90,6 +92,14 @@ class App extends React.Component {
     }
   }
 
+  randomPiece() {
+    axios.get('/routes/routes/random')
+      .then(data => { this.setState({ featuredPiece: data.data }); })
+      .then(() => {
+        console.log(this.state.featuredPiece);
+      });
+  }
+
   componentDidMount() {
     axios.get('/routes/routes/random')
       .then(data => { this.setState({ featuredPiece: data.data }); })
@@ -98,13 +108,45 @@ class App extends React.Component {
       });
     axios.get('/routes/routes/')
       .then(data => { this.setState({ pieces: data.data}); })
-      .then(data => console.log(this.state.pieces));
+      .then(() => console.log(this.state.pieces));
   }
 
   render() {
-    return <h1>{this.props.title}</h1>;
+    const { pieces, favorites, featuredPiece, user, isLoggedIn } = this.state;
+    return (
+      <>
+        < Navbar
+          login={this.handleLogin}
+          register={this.handleRegister}
+          user={user}
+          isLoggedIn={isLoggedIn} />
+        <h1>{this.props.title}</h1>
+        < Search
+          onSearch={this.handleSearch} />
+        < Art 
+          featuredPiece={featuredPiece}
+          user={user} 
+          isLoggedIn={isLoggedIn}
+          favorite={this.handleFavorite}
+          unfavorite={this.handleUnfavorite}
+          random={this.randomPiece}
+        />
+        < ArtList 
+          favorites={favorites} 
+          user={user} 
+          isLoggedIn={isLoggedIn} 
+          pieces={pieces}
+          favorite={this.handleFavorite}
+          unfavorite={this.handleUnfavorite} />
+      </>
+    );
   }
 }
+
+// import Art from './Art';
+// import ArtList from './ArtList';
+// import Navbar from './Navbar';
+// import Search from './Search';
 
 
 

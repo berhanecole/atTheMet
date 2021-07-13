@@ -1,7 +1,15 @@
 import React from 'react';
 
-const Navbar = ( props ) => {
+class Navbar extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-};
+  render () {
+    return (
+      <h2>Navbar</h2>
+    );
+  }
+}
 
 export default Navbar;

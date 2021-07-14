@@ -40,12 +40,13 @@ body{
   padding-top: 150px;
   padding-bottom: 150px;
   position: relative;
-  top: 60px;
+  top: 80px;
   /* margin-bottom: 200px; */
 }
 
 .title {
   text-align: center;
+  padding-top: 50px;
   padding-bottom: 100px;
 }
 

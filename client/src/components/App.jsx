@@ -53,7 +53,7 @@ class App extends React.Component {
         .then((data) => {
           console.log(data);
         }).then(() => {
-          Swal.fire('Successfully Registered');
+          Swal.fire('Successfully Registered, Proceed To Login');
         }).catch(err => {
           Swal.fire('Registration Unsuccessful');
           console.log(err);
@@ -68,7 +68,19 @@ class App extends React.Component {
           console.log(data);
           this.setState({ user: data.data, isLoggedIn: true, favorites: data.data.favorites });
         }).then(() => {
-          Swal.fire('Successfully Logged In');
+          Swal.fire({
+            icon: 'success',
+            title: 'Signed in successfully',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+          });
         }).catch(err => {
           Swal.fire('Login Unsuccessful');
           console.log(err);

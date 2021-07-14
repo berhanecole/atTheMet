@@ -7,15 +7,9 @@ class ArtList extends React.Component {
   
     // this.clickRetrieve = this.clickRetrieve.bind(this);
   }
-
-  // clickRetrieve () {
-  //   const { retrieve } = this.props;
-  // }
-
-
   render() {
     const { pieces, favorites, user, isLoggedIn, retrieve } = this.props;
-    return isLoggedIn ? (
+    return favorites.length ? (
       <div>
         <h2>Favorites</h2>
         { favorites.map((piece, i) => {

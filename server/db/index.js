@@ -15,7 +15,8 @@ mongoose.connect(`mongodb://localhost:27017/${DB}`,
 const PieceSchema = new mongoose.Schema({
   apiID: {
     type: Number,
-    unique: true
+    unique: true,
+    sparse: true,
   },
   imageLarge: String,
   imageSmall: String,
@@ -54,8 +55,9 @@ const UserSchema = new mongoose.Schema({
   username: String,
   password: String,
   favorites: {
-    type: [PieceSchema],
-    default: undefined
+    type: [ PieceSchema ],
+    default: undefined,
+    sparse: true,
   }
 });
 

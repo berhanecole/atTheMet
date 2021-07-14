@@ -154,8 +154,9 @@ ArtRoutes.post('/register', (req, res) => {
 });
 
 // get user information
-ArtRoutes.get('/login', (req, res) => {
+ArtRoutes.post('/login', (req, res) => {
   const { username, password } = req.body;
+  console.log(req.body);
   User.findOne({ username }).then((foundUser) => {
     if (foundUser) {
       if (password === foundUser.password) {

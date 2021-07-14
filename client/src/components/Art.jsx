@@ -11,21 +11,8 @@ class Art extends React.Component {
     // this.favoriteClick = favoriteClick.bind(this);
     // this.unfavoriteClick = unfavoriteClick.bind(this);
   }
-
-  // favoriteClick() {
-  //   const { favorite, featuredPiece } = this.props;
-
-  // }
-
-  // unfavoriteClick() {
-  //   const { unfavorite, featuredPiece } = this.props;
-
-  // }
-
-  // componentDidMount() {
-  //   this.se
-  // }
-
+  handleClick() {
+  }
   render() {
     const { featuredPiece, isLoggedIn, tags, favorite, unfavorite, deletePiece, random } = this.props;
 
@@ -37,7 +24,9 @@ class Art extends React.Component {
     return isLoggedIn ? (
       <div>
         <h2>{featuredPiece.title}</h2>
-        <img src={featuredPiece.imageSmall} />
+        <a href={featuredPiece.externalUrl}>
+          <img src={featuredPiece.imageSmall} />
+        </a>
         <h5>Artist: {featuredPiece.artist}</h5>
         <h4>{ featuredPiece.artistBio }</h4>
         <h4>Date: { featuredPiece.date }</h4>
@@ -58,7 +47,9 @@ class Art extends React.Component {
     ) : (
       <div>
         <h2>{featuredPiece.title}</h2>
-        <img src={featuredPiece.imageSmall}/>
+        <a href={featuredPiece.externalUrl}>
+          <img src={featuredPiece.imageSmall} />
+        </a>
         <h5>Artist: {featuredPiece.artist}</h5>
         <h4>{ featuredPiece.artistBio }</h4>
         <h4>Date: { featuredPiece.date }</h4>

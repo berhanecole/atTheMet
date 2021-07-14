@@ -35,58 +35,60 @@ class Navbar extends React.Component {
   render () {
     const { user, logout, isLoggedIn } = this.props;
 
-    return isLoggedIn ? (
-      <button type="submit" className="btn btn-primary mb-2" onClick={logout}>Logout</button>
+    return isLoggedIn ? ( 
+      <div className='logout'>
+        <button type="submit" className="btn btn-primary mb-2" onClick={logout}>Logout</button>
+      </div>
     ) : (
-      <div>
-        <div>
-          <h5>login:</h5>
-          {/* <form className="form-inline"> */}
-          {/* <label className="sr-only" for="loginUsername">Username</label> */}
-          <input 
-            value={this.state.loginUser}
-            type="text" 
-            className="form-control mb-2 mr-sm-2" 
-            name='loginUser' 
-            onChange={this.handleChange} 
-            placeholder="Username" />
-          {/* <label className="sr-only" for="loginPassword">Password</label> */}
-          <div className="input-group mb-2 mr-sm-2">
+      <div className='login'>
+        <span>
+          <h5>Login:</h5>
+          <form className="form-inline">
+            {/* <label className="sr-only" for="loginUsername">Username</label> */}
             <input 
-              value={this.state.loginPass}
+              value={this.state.loginUser}
               type="text" 
-              className="form-control" 
-              name="loginPass" 
+              className="form-control mb-2 mr-sm-2" 
+              name='loginUser' 
               onChange={this.handleChange} 
-              placeholder="Password" />
-          </div>
-          <button className="btn btn-primary mb-2" onClick={this.loginClick}>Login</button>
-          {/* </form> */}
-        </div>
-        <div>
+              placeholder="Username" />
+            {/* <label className="sr-only" for="loginPassword">Password</label> */}
+            <div className="input-group mb-2 mr-sm-2">
+              <input 
+                value={this.state.loginPass}
+                type="text" 
+                className="form-control" 
+                name="loginPass" 
+                onChange={this.handleChange} 
+                placeholder="Password" />
+            </div>
+            <button type='button' className="btn btn-outline-secondary btn-sm mb-2" onClick={this.loginClick}>Login</button>
+          </form>
+        </span>
+        <span>
           <h5>Register:</h5>
-          {/* <form className="form-inline"> */}
-          {/* <label className="sr-only" for="registerUsername">Username</label> */}
-          <input 
-            type="text" 
-            className="form-control mb-2 mr-sm-2" 
-            name="regUser" 
-            value={this.state.regUser}
-            onChange={this.handleChange} 
-            placeholder="Username" />
-          {/* <label className="sr-only" for="registerPassword">Password</label> */}
-          <div className="input-group mb-2 mr-sm-2">
+          <form className="form-inline">
+            {/* <label className="sr-only" for="registerUsername">Username</label> */}
             <input 
               type="text" 
-              className="form-control" 
-              name="regPass" 
-              value={this.state.regPass}
+              className="form-control mb-2 mr-sm-2" 
+              name="regUser" 
+              value={this.state.regUser}
               onChange={this.handleChange} 
-              placeholder="Password" />
-          </div>
-          <button className="btn btn-primary mb-2" onClick={this.registerClick}>Register</button>
-          {/* </form> */}
-        </div>
+              placeholder="Username" />
+            {/* <label className="sr-only" for="registerPassword">Password</label> */}
+            <div className="input-group mb-2 mr-sm-2">
+              <input 
+                type="text" 
+                className="form-control" 
+                name="regPass" 
+                value={this.state.regPass}
+                onChange={this.handleChange} 
+                placeholder="Password" />
+            </div>
+            <button type='button' className="btn btn-outline-secondary btn-sm mb-2" onClick={this.registerClick}>Register</button>
+          </form>
+        </span>
       </div>
     );
   }

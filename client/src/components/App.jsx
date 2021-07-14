@@ -156,34 +156,42 @@ class App extends React.Component {
   render() {
     const { pieces, favorites, featuredPiece, user, isLoggedIn, tags } = this.state;
     return (
-      <>
-        < Navbar
-          logout={this.handleLogout}
-          login={this.handleLogin}
-          register={this.handleRegister}
-          user={user}
-          isLoggedIn={isLoggedIn} />
-        <h1>{this.props.title}</h1>
-        < Search
-          onSearch={this.handleSearch} />
-        < Art 
-          featuredPiece={featuredPiece}
-          user={user} 
-          isLoggedIn={isLoggedIn}
-          favorite={this.handleFavorite}
-          unfavorite={this.handleUnfavorite}
-          random={this.randomPiece}
-          deletePiece={this.handleDelete}
-          tags={tags}
-        />
-        < ArtList 
-          favorites={favorites} 
-          user={user} 
-          isLoggedIn={isLoggedIn} 
-          pieces={pieces}
-          retrieve={this.handleRetrieve}
-        />
-      </>
+      <div className='body'>
+        <div className='container-fluid'>
+          <div className='row'>
+            <div className='col-6'>
+              <h1 className='heading'>{this.props.title}</h1>
+            </div>
+            < Navbar className='col-6'
+              logout={this.handleLogout}
+              login={this.handleLogin}
+              register={this.handleRegister}
+              user={user}
+              isLoggedIn={isLoggedIn} />
+          </div>
+          <div className='row'>
+            < Search className='col-6'
+              onSearch={this.handleSearch} />
+          </div>
+          < Art 
+            featuredPiece={featuredPiece}
+            user={user} 
+            isLoggedIn={isLoggedIn}
+            favorite={this.handleFavorite}
+            unfavorite={this.handleUnfavorite}
+            random={this.randomPiece}
+            deletePiece={this.handleDelete}
+            tags={tags}
+          />
+          < ArtList 
+            favorites={favorites} 
+            user={user} 
+            isLoggedIn={isLoggedIn} 
+            pieces={pieces}
+            retrieve={this.handleRetrieve}
+          />
+        </div>
+      </div>
     );
   }
 }

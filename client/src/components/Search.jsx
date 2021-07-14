@@ -6,7 +6,7 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: 'Agnes Martin'
+      query: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -30,10 +30,10 @@ class Search extends React.Component {
     return (
       // <h2>Search</h2>
       <>
-        <div className="input-group">
-          <input type="search" className="form-control rounded" value={query} onChange={this.handleChange} placeholder="Search" aria-label="Search"
+        <div className="input-group mb-3 search-bar">
+          <input type="search" className="form-control rounded bar" value={query} onChange={this.handleChange} placeholder="Search" aria-label="Search"
             aria-describedby="search-addon" />
-          <button type="button" className="btn btn-outline-primary" onClick={this.handleClick}>search</button>
+          <button type="button" className="btn btn-outline-dark" onClick={this.handleClick}>search</button>
         </div>
       </>
     );

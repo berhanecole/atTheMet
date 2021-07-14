@@ -52,7 +52,7 @@ ArtRoutes.get('/tag', (req, res) => {
 
 ArtRoutes.post('/featured', async (req, res) => {
   const { query } = req.body;
-  const { data } = await metAPISearch('Agnes Martin');
+  const { data } = await metAPISearch(query);
   return Piece.find({apiID: data.objectID})
     .then(results => {
       if (results.length) {

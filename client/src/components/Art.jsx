@@ -22,46 +22,74 @@ class Art extends React.Component {
 
 
     return isLoggedIn ? (
-      <div>
-        <h2>{featuredPiece.title}</h2>
-        <a href={featuredPiece.externalUrl}>
-          <img src={featuredPiece.imageSmall} />
-        </a>
-        <h5>Artist: {featuredPiece.artist}</h5>
-        <h4>{ featuredPiece.artistBio }</h4>
-        <h4>Date: { featuredPiece.date }</h4>
-        <h4>Medium: {featuredPiece.medium} </h4>
-        <h4>Dimensions: {featuredPiece.dimension} </h4>
-        { tags.map((tag, i) => {
-          return (
-            <span key={i}> {tag} </span>
-          );
-        }) }
-        <br />
-        <a href={featuredPiece.externalUrl}>Read More</a>
-        <br />
-        <button type="button" className="btn btn-outline-success" onClick={favorite}>Favorite</button>
-        <button type="button" className="btn btn-outline-danger" onClick={unfavorite}>Unfavorite</button>
-        <button type="button" className="btn btn-outline-dark" onClick={deletePiece}>DELETE</button>
+      <div className='container'>
+        <h1 className='title'>{featuredPiece.title}</h1>
+        <div className='row'>
+          <div className='col-md-8'>
+            <div className='art'>
+              <a href={featuredPiece.externalUrl}>
+                <img src={featuredPiece.imageLarge} />
+              </a>
+            </div>
+          </div>
+          <div className='col-md-4'>
+            <div className='info'>
+              <h3>{featuredPiece.artist}</h3>
+              <h6>{ featuredPiece.artistBio }</h6>
+              <br />
+              <h6>{ featuredPiece.date }</h6>
+              <h6>{featuredPiece.medium} </h6>
+              <h6>{featuredPiece.dimension} </h6>
+              <br />
+              <h6>tags:</h6>
+              { tags.map((tag, i) => {
+                return (
+                  <span key={i}> {tag} </span>
+                );
+              }) }
+              <br />
+              <a href={featuredPiece.externalUrl}>Read More</a>
+              <br />
+              <div className='button-group'>
+                <button type="button" className="btn btn-outline-success" onClick={favorite}>Favorite</button>
+                <button type="button" className="btn btn-outline-danger middle-button" onClick={unfavorite}>Unfavorite</button>
+                <button type="button" className="btn btn-outline-dark" onClick={deletePiece}>DELETE</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     ) : (
-      <div>
-        <h2>{featuredPiece.title}</h2>
-        <a href={featuredPiece.externalUrl}>
-          <img src={featuredPiece.imageSmall} />
-        </a>
-        <h5>Artist: {featuredPiece.artist}</h5>
-        <h4>{ featuredPiece.artistBio }</h4>
-        <h4>Date: { featuredPiece.date }</h4>
-        <h4>Medium: {featuredPiece.medium} </h4>
-        <h4>Dimensions: {featuredPiece.dimension} </h4>
-        { tags.map((eachTag, i) => {
-          return (
-            <span key={i}> {eachTag}, </span>
-          );
-        }) }
-        <br />
-        <a href={featuredPiece.externalUrl}>Read More</a>
+      <div className='container'>
+        <h1 className='title'>{featuredPiece.title}</h1>
+        <div className='row'>
+          <div className='col-md-8'>
+            <div className='art'>
+              <a href={featuredPiece.externalUrl}>
+                <img src={featuredPiece.imageLarge} />
+              </a>
+            </div>
+          </div>
+          <div className='col-md-4'>
+            <div className='info'>
+              <h3>{featuredPiece.artist}</h3>
+              <h6>{ featuredPiece.artistBio }</h6>
+              <br />
+              <h6>{ featuredPiece.date }</h6>
+              <h6>{featuredPiece.medium} </h6>
+              <h6>{featuredPiece.dimension} </h6>
+              <br />
+              <h6>tags:</h6>
+              { tags.map((eachTag, i) => {
+                return (
+                  <span key={i}> {eachTag}, </span>
+                );
+              }) }
+              <br />
+              <a href={featuredPiece.externalUrl}>Read More</a>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

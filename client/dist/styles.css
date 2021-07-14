@@ -1,4 +1,85 @@
-/* img{
-  max-width:700px;
-  max-height:700px;
-} */
+img {
+ height: 100%;
+ width: 100%;
+}
+
+body{
+  background-color: rgba(214, 221, 230, 0.952);
+}
+
+.body{
+  margin-top: 20px;
+  margin-bottom: 100px;
+}
+
+.login {
+  position: relative;
+  left: 140px;
+  top: 30px;
+}
+
+.logout {
+  position: absolute;
+  right: 100px;
+  top: 60px;
+}
+
+.heading {
+  font-size: 90px;
+  color: rgb(190, 150, 241);
+  padding: 30px;
+  position: absolute;
+  top: 30px;
+  left: 40px
+}
+
+
+.search-bar {
+  margin-left: 300px;
+  margin-right: 300px;
+  padding-top: 150px;
+  padding-bottom: 150px;
+  position: relative;
+  top: 60px;
+  /* margin-bottom: 200px; */
+}
+
+.title {
+  text-align: center;
+  padding-bottom: 100px;
+}
+
+.database {
+  text-align: center;
+  padding-top: 150px;
+  padding-bottom: 100px;
+}
+
+.art {
+  position: relative;
+  right: 150px
+}
+
+.info {
+  margin-top: 60px;
+  padding-top: 60px;
+}
+
+.button-group {
+  margin-top: 40px;
+}
+
+.middle-button {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+
+.piece:hover {
+  color: rgb(200, 164, 248);
+  cursor: pointer;
+}
+
+.piece {
+  margin-bottom: 20px;
+}

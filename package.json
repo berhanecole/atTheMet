@@ -31,6 +31,7 @@
   "homepage": "https://github.com/berhanecole/immersion-2021-06-mvp#readme",
   "dependencies": {
     "axios": "^0.21.1",
+    "bootstrap": "^5.0.2",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "mongoose": "^5.13.2",

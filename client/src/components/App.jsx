@@ -17,6 +17,7 @@ class App extends React.Component {
       featuredPiece: {},
       user: {},
       isLoggedIn: false,
+      tags: [],
       query: ''
     };
 
@@ -25,15 +26,19 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
     this.randomPiece = this.randomPiece.bind(this);
     this.handleFavorite = this.handleFavorite.bind(this);
     this.handleUnfavorite = this.handleUnfavorite.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleRetrieve = this.handleRetrieve.bind(this);
   }
 
   handleSearch(query) {
     if (query.length) {
-      axios.get('/routes/routes/featured', { query })
-        .then(data => { this.setState({ featuredPiece: data.data }); });
+      return axios.post('/routes/routes/featured', { query })
+        .then(data => { this.setState({ featuredPiece: data.data }); })
+        .catch(err => { console.log(err); });
     }
   }
 
@@ -43,7 +48,7 @@ class App extends React.Component {
 
   handleRegister(username, password) {
     if (username && password.length) {
-      axios.post('/routes/routes/register', { username, password })
+      return axios.post('/routes/routes/register', { username, password })
         .then((data) => {
           console.log(data);
         }).catch(err => {
@@ -54,7 +59,7 @@ class App extends React.Component {
 
   handleLogin(username, password) {
     if (username && password.length) {
-      axios.login('/routes/routes/login', { username, password })
+      return axios.login('/routes/routes/login', { username, password })
         .then((data) => {
           console.log(data);
           if (data.apiID) {
@@ -66,11 +71,15 @@ class App extends React.Component {
     }
   }
 
+  handleLogout() {
+    this.setState({ user: {}, favorites: [], isLoggedIn: true});
+  }
+
   handleFavorite() {
     if (isLoggedIn) {
       const { username } = this.state.user;
       const { apiID } = this.state.featuredPiece;
-      axios.patch(`/${username}/add/${apiID}`)
+      return axios.patch(`routes/routes/${username}/add/${apiID}`)
         .then(() => {
           console.log('successfully added favorite');
         }).catch(err => {
@@ -83,7 +92,7 @@ class App extends React.Component {
     if (isLoggedIn) {
       const { username } = this.state.user;
       const { apiID } = this.state.featuredPiece;
-      axios.patch(`/${username}/delete/${apiID}`)
+      return axios.patch(`routes/routes/${username}/delete/${apiID}`)
         .then(() => {
           console.log('successfully removed favorite');
         }).catch(err => {
@@ -92,30 +101,60 @@ class App extends React.Component {
     }
   }
 
+  handleDelete() {
+    const { apiID } = this.state.featuredPiece;
+    return axios.delete(`routes/routes/piece/${apiID}`)
+      .then(() => { console.log('piece deleted from database'); })
+      .catch(err => { console.log(err); });
+  }
+
+
+  handleRetrieve(objectID) {
+    return axios.get(`routes/routes/piece/${objectID}`)
+      .then(data => {
+        console.log(data.data);
+        return this.setState({featuredPiece: data.data[0]});
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+  }
+
   randomPiece() {
-    axios.get('/routes/routes/random')
+    return axios.get('/routes/routes/random')
       .then(data => { this.setState({ featuredPiece: data.data }); })
       .then(() => {
+        this.setState({ tags: this.state.featuredPiece.tags});
         console.log(this.state.featuredPiece);
       });
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     axios.get('/routes/routes/random')
       .then(data => { this.setState({ featuredPiece: data.data }); })
       .then(() => {
+        this.setState({ tags: this.state.featuredPiece.tags});
         console.log(this.state.featuredPiece);
+      }).then(() => {
+        axios.get('/routes/routes/')
+          .then(data => { this.setState({ pieces: data.data}); })
+          .then(() => console.log(this.state.pieces));
       });
-    axios.get('/routes/routes/')
-      .then(data => { this.setState({ pieces: data.data}); })
-      .then(() => console.log(this.state.pieces));
+  }
+
+  componentDidUpdate() {
+    if (this.state.featuredPiece.tags !== this.state.tags) {
+      this.setState({ tags: this.state.featuredPiece.tags});
+    }
   }
 
   render() {
-    const { pieces, favorites, featuredPiece, user, isLoggedIn } = this.state;
+    const { pieces, favorites, featuredPiece, user, isLoggedIn, tags } = this.state;
     return (
       <>
         < Navbar
+          logout={this.handleLogout}
           login={this.handleLogin}
           register={this.handleRegister}
           user={user}
@@ -130,24 +169,20 @@ class App extends React.Component {
           favorite={this.handleFavorite}
           unfavorite={this.handleUnfavorite}
           random={this.randomPiece}
+          deletePiece={this.handleDelete}
+          tags={tags}
         />
         < ArtList 
           favorites={favorites} 
           user={user} 
           isLoggedIn={isLoggedIn} 
           pieces={pieces}
-          favorite={this.handleFavorite}
-          unfavorite={this.handleUnfavorite} />
+          retrieve={this.handleRetrieve}
+        />
       </>
     );
   }
 }
-
-// import Art from './Art';
-// import ArtList from './ArtList';
-// import Navbar from './Navbar';
-// import Search from './Search';
-
 
 
 export default App;

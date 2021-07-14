@@ -17,7 +17,8 @@ const PieceSchema = new mongoose.Schema({
     type: Number,
     unique: true
   },
-  image: String,
+  imageLarge: String,
+  imageSmall: String,
   title: {
     default: 'Untitled',
     type: String

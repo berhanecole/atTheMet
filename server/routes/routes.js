@@ -50,9 +50,9 @@ ArtRoutes.get('/tag', (req, res) => {
 
 //add a piece to database from API
 
-ArtRoutes.get('/featured', async (req, res) => {
-  const query = req.body;
-  const { data } = await metAPISearch('renoir');
+ArtRoutes.post('/featured', async (req, res) => {
+  const { query } = req.body;
+  const { data } = await metAPISearch('Agnes Martin');
   return Piece.find({apiID: data.objectID})
     .then(results => {
       if (results.length) {
@@ -63,7 +63,8 @@ ArtRoutes.get('/featured', async (req, res) => {
         const tags = data.tags.map(tag => tag.term);
         const newPiece = new Piece({
           apiID: data.objectID,
-          image: data.primaryImageSmall,
+          imageLarge: data.primaryImage,
+          imageSmall: data.primaryImageSmall,
           title: data.title,
           artist: data.artistDisplayName,
           artistBio: data.artistDisplayBio,
@@ -75,7 +76,7 @@ ArtRoutes.get('/featured', async (req, res) => {
         });
         newPiece.save().then(data => {
           console.log('new document saved');
-          res.status(201).json(data);
+          res.status(201).send(data);
         });
       }
     }).catch(err => {

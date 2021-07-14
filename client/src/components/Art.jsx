@@ -15,12 +15,7 @@ import React from 'react';
 //   render() {
 const Art = ( props ) => {
   const { featuredPiece, isLoggedIn, tags, favorite, unfavorite, deletePiece, random } = props;
-
-  featuredPiece;
-  console.log('THIS IS FEATURED PIECE', featuredPiece);
-  console.log(featuredPiece.tags);
-
-
+  
   return isLoggedIn ? (
     <div className='container'>
       <h1 className='title'>{featuredPiece.title}</h1>

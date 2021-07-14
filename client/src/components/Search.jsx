@@ -17,7 +17,6 @@ class Search extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    console.log(this.props);
     const { onSearch } = this.props;
     const { query } = this.state;
     onSearch(query);

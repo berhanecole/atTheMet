@@ -21,10 +21,8 @@ ArtRoutes.get('/', (req, res) => {
 ArtRoutes.get('/random', (req, res) => {
   Piece.find({})
     .then((data) => {
-      console.log(data);
       const randomIndex = Math.floor(Math.random() * data.length);
       const randomPiece = data[randomIndex];
-      console.log(randomPiece);
       return randomPiece;
     }).then(data => {
       res.status(200).send(data);
@@ -39,8 +37,6 @@ ArtRoutes.get('/tag', (req, res) => {
   const { tag } = req.body;
   Piece.find({tags: tag})
     .then(results => {
-      console.log(tag);
-      console.log(results);
       res.status(200).send(results);
     }).catch(err => {
       console.log(err);
@@ -56,10 +52,8 @@ ArtRoutes.post('/featured', async (req, res) => {
   return Piece.find({apiID: data.objectID})
     .then(results => {
       if (results.length) {
-        console.log('already in DB');
         res.status(302).send('already in DB');
       } else {
-        console.log(data);
         const tags = data.tags === null ? [] : data.tags.map(tag => tag.term);
         const newPiece = new Piece({
           apiID: data.objectID,
@@ -75,7 +69,6 @@ ArtRoutes.post('/featured', async (req, res) => {
           tags: tags
         });
         newPiece.save().then(data => {
-          console.log('new document saved');
           res.status(201).send(data);
         });
       }
@@ -108,7 +101,6 @@ ArtRoutes.route('/piece/:objectID')
     const { tag } = req.body;
     Piece.update({apiID: objectID}, { $push: { tags: tag }})
       .then((data) => {
-        console.log(data);
         res.status(201).send('document successfully patched');
       }).catch(err => {
         console.log(err);
@@ -140,7 +132,6 @@ ArtRoutes.post('/register', (req, res) => {
         username, password, favorites: [] 
       });
       newUser.save().then((data) => {
-        console.log(data);
         res.status(201).send('registration successful');
       }).catch(err => {
         console.log(err);
@@ -156,11 +147,9 @@ ArtRoutes.post('/register', (req, res) => {
 // get user information
 ArtRoutes.post('/login', (req, res) => {
   const { username, password } = req.body;
-  console.log(req.body);
   User.findOne({ username }).then((foundUser) => {
     if (foundUser) {
       if (password === foundUser.password) {
-        console.log('login successful');
         res.status(200).send(foundUser);
       } else {
         res.status(401).send('login unsuccessful');
@@ -187,10 +176,8 @@ ArtRoutes.get('/:username/favorites', (req, res) => {
 ArtRoutes.patch('/:username/add/:pieceId', async (req, res) => {
   const { username, pieceId } = req.params;
   const piece = await Piece.findOne({apiID: pieceId});
-  console.log(piece);
   User.update({ username }, { $push: { favorites: piece }})
     .then((data) => {
-      console.log(data);
       res.status(201).send('successfully updated');
     }).catch(err => {
       console.log(err);
@@ -202,10 +189,8 @@ ArtRoutes.patch('/:username/add/:pieceId', async (req, res) => {
 ArtRoutes.patch('/:username/delete/:pieceId', async (req, res) => {
   const { username, pieceId } = req.params;
   const piece = await Piece.findOne({apiID: pieceId});
-  console.log(piece);
   User.update({ username }, { $pull: { favorites: piece }})
     .then((data) => {
-      console.log(data);
       res.status(201).send('successfully updated');
     }).catch(err => {
       console.log(err);

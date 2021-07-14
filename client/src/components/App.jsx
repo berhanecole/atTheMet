@@ -130,7 +130,6 @@ class App extends React.Component {
   handleRetrieve(objectID) {
     return axios.get(`routes/routes/piece/${objectID}`)
       .then(data => {
-        console.log(data.data);
         return this.setState({featuredPiece: data.data[0]});
       })
       .catch(err => {
@@ -144,7 +143,6 @@ class App extends React.Component {
       .then(data => { this.setState({ featuredPiece: data.data }); })
       .then(() => {
         this.setState({ tags: this.state.featuredPiece.tags});
-        console.log(this.state.featuredPiece);
       });
   }
 
@@ -153,13 +151,9 @@ class App extends React.Component {
       .then(data => { this.setState({ featuredPiece: data.data }); })
       .then(() => {
         this.setState({ tags: this.state.featuredPiece.tags});
-        console.log(this.state.featuredPiece);
       });
-    // .then(() => {
     axios.get('/routes/routes/')
-      .then(data => { this.setState({ pieces: data.data}); })
-      .then(() => console.log(this.state.pieces));
-    // });
+      .then(data => { this.setState({ pieces: data.data}); });
   }
 
   componentDidUpdate(prevState) {

@@ -60,7 +60,7 @@ ArtRoutes.post('/featured', async (req, res) => {
         res.status(302).send('already in DB');
       } else {
         console.log(data);
-        const tags = data.tags.map(tag => tag.term);
+        const tags = data.tags === null ? [] : data.tags.map(tag => tag.term);
         const newPiece = new Piece({
           apiID: data.objectID,
           imageLarge: data.primaryImage,
@@ -191,7 +191,7 @@ ArtRoutes.patch('/:username/add/:pieceId', async (req, res) => {
   User.update({ username }, { $push: { favorites: piece }})
     .then((data) => {
       console.log(data);
-      res.send(201).send('successfully updated');
+      res.status(201).send('successfully updated');
     }).catch(err => {
       console.log(err);
       res.sendStatus(500);

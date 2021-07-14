@@ -2,6 +2,7 @@
 import React from 'react';
 import axios from 'axios';
 import * as _ from 'underscore';
+import Swal from 'sweetalert2';
 
 import Art from './Art';
 import ArtList from './ArtList';
@@ -37,7 +38,7 @@ class App extends React.Component {
   handleSearch(query) {
     if (query.length) {
       return axios.post('/routes/routes/featured', { query })
-        .then(data => { this.setState({ featuredPiece: data.data }); })
+        .then(data => { this.setState({ featuredPiece: data.data, pieces: [...this.state.pieces, data.data ]}); })
         .catch(err => { console.log(err); });
     }
   }
@@ -51,7 +52,10 @@ class App extends React.Component {
       return axios.post('/routes/routes/register', { username, password })
         .then((data) => {
           console.log(data);
+        }).then(() => {
+          Swal.fire('Successfully Registered');
         }).catch(err => {
+          Swal.fire('Registration Unsuccessful');
           console.log(err);
         });
     }
@@ -63,7 +67,10 @@ class App extends React.Component {
         .then((data) => {
           console.log(data);
           this.setState({ user: data.data, isLoggedIn: true, favorites: data.data.favorites });
+        }).then(() => {
+          Swal.fire('Successfully Logged In');
         }).catch(err => {
+          Swal.fire('Login Unsuccessful');
           console.log(err);
         });
     }
@@ -112,7 +119,7 @@ class App extends React.Component {
     return axios.get(`routes/routes/piece/${objectID}`)
       .then(data => {
         console.log(data.data);
-        return this.setState({featuredPiece: data.data[0], pieces: this.state.pieces.push(data.data[0])});
+        return this.setState({featuredPiece: data.data[0]});
       })
       .catch(err => {
         console.log(err);
@@ -135,11 +142,12 @@ class App extends React.Component {
       .then(() => {
         this.setState({ tags: this.state.featuredPiece.tags});
         console.log(this.state.featuredPiece);
-      }).then(() => {
-        axios.get('/routes/routes/')
-          .then(data => { this.setState({ pieces: data.data}); })
-          .then(() => console.log(this.state.pieces));
       });
+    // .then(() => {
+    axios.get('/routes/routes/')
+      .then(data => { this.setState({ pieces: data.data}); })
+      .then(() => console.log(this.state.pieces));
+    // });
   }
 
   componentDidUpdate(prevState) {

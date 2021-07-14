@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
@@ -30,6 +31,7 @@ class Navbar extends React.Component {
     const { register } = this.props;
     const { regUser, regPass } = this.state;
     register(regUser, regPass);
+    this.setState({ regUser: '', regPass: ''});
   }
 
   render () {
@@ -56,7 +58,7 @@ class Navbar extends React.Component {
             <div className="input-group mb-2 mr-sm-2">
               <input 
                 value={this.state.loginPass}
-                type="text" 
+                type="password" 
                 className="form-control" 
                 name="loginPass" 
                 onChange={this.handleChange} 
@@ -79,7 +81,7 @@ class Navbar extends React.Component {
             {/* <label className="sr-only" for="registerPassword">Password</label> */}
             <div className="input-group mb-2 mr-sm-2">
               <input 
-                type="text" 
+                type="password" 
                 className="form-control" 
                 name="regPass" 
                 value={this.state.regPass}

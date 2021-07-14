@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import * as _ from 'underscore';
 
 class Search extends React.Component {
@@ -28,7 +27,6 @@ class Search extends React.Component {
   render() {
     const { query } = this.state;
     return (
-      // <h2>Search</h2>
       <>
         <div className="input-group mb-3 search-bar">
           <input type="search" className="form-control rounded bar" value={query} onChange={this.handleChange} placeholder="Search" aria-label="Search"

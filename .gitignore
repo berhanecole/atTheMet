@@ -3,6 +3,7 @@
 
 # Node/NPM
 node_modules
+package-lock.json
 
 # Project
 client/dist/bundle.js

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import docentTalk from '../docents';
 
 // class Art extends React.Component {
 //   constructor(props) {
@@ -14,8 +15,10 @@ import React from 'react';
 //   }
 //   render() {
 const Art = ( props ) => {
+  useEffect(docentTalk, []);
+
   const { featuredPiece, isLoggedIn, tags, favorite, unfavorite, deletePiece, random } = props;
-  
+
   return isLoggedIn ? (
     <div className='container'>
       <h1 className='title'>{featuredPiece.title}</h1>
@@ -23,7 +26,8 @@ const Art = ( props ) => {
         <div className='col-md-8'>
           <div className='art'>
             <a href={featuredPiece.externalUrl}>
-              <img src={featuredPiece.imageLarge} />
+              {/* crossOrigin='anonymous' */}
+              <img src={featuredPiece.imageLarge} onClick={docentTalk} id='art-piece' />
             </a>
           </div>
         </div>
@@ -61,7 +65,8 @@ const Art = ( props ) => {
         <div className='col-md-8'>
           <div className='art'>
             <a href={featuredPiece.externalUrl}>
-              <img src={featuredPiece.imageLarge} />
+              {/* crossOrigin='anonymous' */}
+              <img src={featuredPiece.imageLarge} onClick={docentTalk} id='art-piece' />
             </a>
           </div>
         </div>
